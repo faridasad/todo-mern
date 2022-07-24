@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios"
 import "./App.css";
 
 const URL_BASE = "http://localhost:8000";
@@ -12,22 +12,17 @@ function App() {
     getTodos();
   }, []);
 
-  const getTodos = () => {
-    fetch(URL_BASE + "/todos")
-      .then((res) => res.json())
-      .then((data) => setTodos(data))
-      .catch((err) => console.error(err));
+  const getTodos = async () => {
+    await axios.get(URL_BASE + "/todos").then(res => setTodos(res.data))
   };
 
   const completeTodo = async (id) => {
-    const result = await fetch(URL_BASE + "/todos/complete/" + id).then((res) =>
-      res.json()
-    );
+    const result = await axios.put((URL_BASE + "/todos/complete/" + id))
 
     setTodos((todos) =>
       todos.map((todo) => {
-        if (todo._id === result._id) {
-          todo.completed = result.completed;
+        if (todo._id === result.data._id) {
+          todo.completed = result.data.completed;
         }
         return todo;
       })
@@ -35,11 +30,9 @@ function App() {
   };
 
   const deleteTodo = async (id) => {
-    const data = await fetch(URL_BASE + "/todos/delete/" + id, {
-      method: "DELETE",
-    }).then((res) => res.json());
+    const res = await axios.delete(URL_BASE + "/todos/delete/" + id)
 
-    setTodos((todos) => todos.filter((todo) => todo._id !== data._id));
+    setTodos((todos) => todos.filter((todo) => todo._id !== res.data._id));
   };
 
   const addTodo = async (e) => {
@@ -77,20 +70,22 @@ function App() {
         <div className="todos-container">
           <ul className="todo-list">
             {todos.map((todo) => (
-              <li
-                className={"todo-item" + (todo.completed ? " completed" : "")}
-                onClick={() => completeTodo(todo._id)}
-                key={todo._id}
-              >
-                <p>{todo.text}</p>{" "}
-                <span
-                  onClick={() => {
-                    deleteTodo(todo._id);
-                  }}
+              <div className="todo-item" key={todo._id}>
+                <li
+                  className={"todo-item" + (todo.completed ? " completed" : "")}
+                  onClick={() => completeTodo(todo._id)}
                 >
-                  X
-                </span>
-              </li>
+                  <p>{todo.text}</p>{" "}
+                  
+                </li>
+                <span
+                onClick={() => {
+                  deleteTodo(todo._id);
+                }}
+              >
+                X
+              </span>
+            </div>
             ))}
           </ul>
         </div>

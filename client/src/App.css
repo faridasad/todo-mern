@@ -45,8 +45,11 @@
   flex: 0.2;
   padding: 0.6em 1em;
   background-color: rgb(197, 134, 255);
+  color: #fff;
   border-radius: 5px;
   border: none;
+  user-select: none;
+  cursor: pointer;
 }
 
 .todos-container {
@@ -65,8 +68,13 @@
 }
 
 .todo-list li {
+  cursor: pointer;
+  user-select: none;
+}
+
+.todo-item {
   width: 100%;
-  padding: 0.5em 1em;
+  padding: 0.3em 1em;
   border-radius: 5px;
   background-color: rgb(197, 134, 255);
   display: flex;
@@ -74,15 +82,11 @@
   justify-content: space-between;
 }
 
-.todo-list span {
-  cursor: pointer;
-}
-
-.todo-item {
+.todo-item span {
   cursor: pointer;
   user-select: none;
 }
 
-.todo-item.completed p {
+.todo-item li.completed p {
   text-decoration: line-through;
 }
