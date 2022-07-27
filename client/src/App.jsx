@@ -53,30 +53,29 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <div className="wrapper">
-        <form className="form-control" onSubmit={(e) => addTodo(e)}>
+    <div className="w-full min-h-screen flex justify-center items-center bg-slate-600">
+      <div className="flex justify-center items-center flex-col gap-5">
+        <form className="w-full flex items-center justify-between gap-3 sm:gap-5" onSubmit={(e) => addTodo(e)}>
           <input
+            className="flex-3 py-2 px-5 border-radius rounded-md outline-none w-44 sm:w-96"
             type="text"
             value={todo}
             placeholder="Add Task"
             onChange={(e) => setTodo(e.target.value)}
           />
-          <button type="submit" disabled={!todo}>
+          <button className="cursor-pointer inline-block px-2 py-3 sm:px-5 bg-gray-800 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out" type="submit" disabled={!todo}>
             {" "}
             add Todo{" "}
           </button>
         </form>
-        <div className="todos-container">
-          <ul className="todo-list">
+        <div className="w-full">
+          <ul className="flex items-center justify-around flex-col gap-4">
             {todos.map((todo) => (
-              <div className="todo-item" key={todo._id}>
-                <li
-                  className={"todo-item" + (todo.completed ? " completed" : "")}
+              <div className="flex items-center justify-between w-full px-4 py-2 bg-zinc-900 hover:bg-zinc-800 transition duration-250 ease-in-out rounded-md text-zinc-50 cursor-pointer select-none" key={todo._id}>
+                <li className="w-full"
                   onClick={() => completeTodo(todo._id)}
                 >
-                  <p>{todo.text}</p>{" "}
-                  
+                  <p className={todo.completed ? "line-through" : ""}>{todo.text}</p>{" "}
                 </li>
                 <span
                 onClick={() => {

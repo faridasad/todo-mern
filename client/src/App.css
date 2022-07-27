@@ -1,10 +1,14 @@
-* {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
-.App {
+ */
+/* .App {
   width: 100%;
   display: flex;
   align-items: center;
@@ -90,3 +94,4 @@
 .todo-item li.completed p {
   text-decoration: line-through;
 }
+ */
